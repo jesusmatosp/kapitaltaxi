@@ -1,11 +1,80 @@
 $(function () {
 	
-	/*$('#dt_det_programacion').DataTable( {
-        "scrollX": true
-    } );*/
+	/** Eliminar Detalle de la Carga  */
+	var idcargadet = null;
+	$('a.deleteCarga[name]').click(function(e) {
+		idcargadet = $(this).attr('name');
+		console.log('--');
+		$.SmartMessageBox({
+			title : "Mensaje de Confirmación!",
+			content : "¿Está Seguro que desea eliminar el detalle de la Carga?",
+			buttons : '[No][Si]'
+		}, function(ButtonPressed) {
+			if (ButtonPressed === "Si") {
+				$.ajax({
+					url: url('servicios/deletedetalleprogramacion'),
+					type: 'POST',
+					async: true,
+					data: {id: idcargadet},
+                    success: function (response) {
+                    	if (response.success) {
+                    		notifyBox("Datos de la Programacion: "+response.message, e, "success");
+	                        setTimeout(function () {
+	                            location.reload();
+	                        }, 2500);
+                    	}else{
+                    		notifyBox(response.message, e, "error");
+                    	}
+                    },
+                    error: function () {
+                    	notifyBox("Error General", e, "error");
+                    }
+				});
+			}
+			if (ButtonPressed === "No") {
+			}	
+		});
+		e.preventDefault();
+	});
 	
-	$('#').click(function(){
+	/** Reconstruir carga buscador de carga masiva. */
+	$('.monitorKT, #btnRefreshMonitor').click(function(){
+		// Setea Campos:
+		var header = '<thead><tr>';
+		header +="<th>N°</th>";
+		header +="<th>Fecha Carga</th>";
+		header +="<th>Fecha Proceso</th>";
+		header +="<th>Nombre Archivo</th>";
+		header +="<th>Estado Carga</th>";
+		header +="<th>Usuario Carga</th>";
+		header +="</tr></thead>";
 		
+		$("#dt_carga").html('');
+		$.ajax({
+			url: url('servicios/monitorCarga'),
+			type: 'POST',
+			async: true,
+			data: {idProgramacion:$("#idProgramacion").val()},
+			success: function(response){
+				if(response.success){
+					var template = header + "<tbody>";
+					num = 1;
+					$.each(response.data, function(it, val){
+						template += "<tr><td>"+num+"</td>";
+						template += "<td>"+val.fechaCarga+"</td>";
+						template += "<td>"+val.fechaProceso+"</td>";
+						template += "<td>"+val.nombreArchivo+"</td>"
+						template += "<td><strong>"+val.estadoCarga+"</strong></td>";
+						template += "<td>"+val.usuarioCarga+"</td></tr>";
+						num++;
+					});
+					template +="</tbody>";
+					$("#dt_carga").html($(template));
+				}else{
+					alert("Nada :(");
+				}
+			}
+		});
 	});
 	
 	$('#btnEnviarProgramacion').click(function(e){
@@ -38,7 +107,6 @@ $(function () {
 			}	
 		});
 		e.preventDefault();
-		
 	});
 	
 	$('#frm01btnGuardar').click(function(e){

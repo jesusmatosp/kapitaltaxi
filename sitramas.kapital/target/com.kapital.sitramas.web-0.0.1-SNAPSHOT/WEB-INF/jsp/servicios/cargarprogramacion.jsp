@@ -31,7 +31,7 @@
 					<ul class="nav navbar-nav">
 						<li><a href="#" data-toggle="modal" data-target="#uploadPrograModal"><i
 								class="fa fa-upload"></i> Carga Masiva</a></li>
-						<li><a href="javascript:void(0);"> <i
+						<li><a href="#" class="monitorKT" data-toggle="modal" data-target="#monitoreoCargaModal"><i
 								class="fa fa-tachometer"></i> Monitorear Carga</a></li>
 						<li><a href="javascript:void(0);"> <i
 								class="fa fa-calendar"></i> Incluir Programacion</a></li>
@@ -63,7 +63,7 @@
 		<div class="col-xs-12 col-sm-5 col-md-5 col-lg-7">
 			<ul id="sparks" class="">
 				<li class="sparks-info"><a class="btn btn-primary"
-					href="<c:url value="/seguridad/roles"  />"><i
+					href="javascript:history.back();"><i
 						class="fa fa-arrow-left"></i> Volver</a></li>
 			</ul>
 		</div>
@@ -154,6 +154,8 @@
 											<td>
 												<a href="${pageContext.request.contextPath}/servicios/detalleProgramacion/${pasajeros.id}"
 												   class='btn btn-xs btn-default'> <i class='fa fa-search'></i></a>
+												<a href="#" name="${pasajeros.id}"
+												   class='btn btn-xs btn-default deleteCarga'> <i class='fa fa-trash-o'></i></a>
 											</td>
 										</tr>
 									</c:forEach>
@@ -166,6 +168,42 @@
 		</article>
 	</div>
 </section>
+<!-- Dialog - Monitoreo de Carga -->
+<div class="modal fade" id="monitoreoCargaModal" tabindex="-1" role="dialog" aria-labelledby="monitoreoCargaModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="monitoreoCargaModalLabel"><i
+								class="fa fa-tachometer"></i> Monitoreo de Carga Masiva</h4>
+			</div>
+			<div class="modal-body">
+				<form id="" action="#" name="monitoreo-carga-form" method="post" >
+					<table id="dt_carga"
+								   class="table table-striped table-bordered table-hover has-tickbox"
+								   width="100%">
+						<thead>
+							<tr>
+								<th>N°</th>
+								<th>Fecha Carga</th>
+								<th>Fecha Procesamiento</th>
+								<th>Estado de Procesamiento</th>
+							</tr>
+						</thead>
+					</table>
+					<div class="modal-footer">
+						<button id="btnRefreshMonitor" type="button" class="btn btn-primary" >
+							<i class="fa fa-refresh"></i> Actualizar</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">
+							Cerrar</button>
+					</div>
+				</form>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	</div>
+</div>
 
 <!-- Dialog - Programación de Servicios -->
 <div class="modal fade" id="uploadPrograModal" tabindex="-1" role="dialog" aria-labelledby="uploadProgModalLabel" aria-hidden="true">
@@ -174,11 +212,12 @@
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal"
 					aria-hidden="true">&times;</button>
-				<h4 class="modal-title" id="uploadProgModalLabel">Carga Masiva de Programación</h4>
+				<h4 class="modal-title" id="uploadProgModalLabel"><i
+								class="fa fa-upload"></i> Carga Masiva de Programación</h4>
 			</div>
 			<div class="modal-body">
 				<form id="upload-programacion-form" action="${pageContext.request.contextPath}/servicios/upload" name="upload-programacion-form" method="post" enctype="multipart/form-data" >
-				<input type="hidden" value="${programacion.idProgramacion}" name="idProgramacion" />
+				<input type="hidden" value="${programacion.idProgramacion}" name="idProgramacion" id="idProgramacion" />
 				<input type="hidden" value="${programacion.strFechaProgramacion}" name="strFechaProgramacion" /> 
 				<div class="row">
 					<div class="col-md-12">
@@ -198,10 +237,10 @@
 				</div>
 			</div>
 			<div class="modal-footer">
+				<button id="btnGuardarProg" type="button" class="btn btn-primary"><i class="fa fa-save" ></i> Guardar
+				</button>
 				<button type="button" class="btn btn-default" data-dismiss="modal">
 					Cancelar</button>
-				<button id="btnGuardarProg" type="button" class="btn btn-primary">Guardar
-				</button>
 			</div>
 			</form>
 		</div>
