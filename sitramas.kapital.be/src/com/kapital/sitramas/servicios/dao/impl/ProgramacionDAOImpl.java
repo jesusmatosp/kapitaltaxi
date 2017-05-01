@@ -12,8 +12,11 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.kapital.sitramas.be.Programacion;
 import com.kapital.sitramas.be.ProgramacionPasajero;
+import com.kapital.sitramas.common.enums.EstadoProgramacionEnum;
 import com.kapital.sitramas.dao.AbstractDAO;
 import com.kapital.sitramas.servicios.dao.ProgramacionDAO;
 
@@ -41,6 +44,45 @@ public class ProgramacionDAOImpl extends AbstractDAO<Programacion> implements Pr
 			throw e;
 		}
 		return lastVersion;
+	}
+
+	@Override
+	public List<Programacion> allProgramacionBorrador() throws SQLException, Exception {
+		// TODO Auto-generated method stub
+		Transaction trans = getCurrentSession().beginTransaction();
+		List<Programacion> programacion = null;
+		try{
+			Criteria criteria = getCurrentSession().createCriteria(Programacion.class);
+			criteria.addOrder(Order.desc("fechaProgramacion"));
+			criteria.addOrder(Order.desc("version"));
+			programacion = criteria.list();
+			trans.commit();
+		}catch(Exception e){
+			trans.rollback();
+			throw e;
+		}
+		return programacion;
+	}
+
+	@Override
+	public List<Programacion> findProgramacionByDate(Date fechaInicio, Date fechaFin) throws SQLException {
+		// TODO Auto-generated method stub
+		Transaction trans = getCurrentSession().beginTransaction();
+		List<Programacion> programacion = null;
+		try{
+			Criteria criteria = getCurrentSession().createCriteria(Programacion.class);
+			criteria.add(Restrictions.between("fechaProgramacion", fechaInicio, fechaFin));
+			criteria.add(Restrictions.eq("estado", EstadoProgramacionEnum.ENVIADO.getValue()));
+			//criteria.add(Restrictions.or(Restrictions.eq("estado", EstadoProgramacionEnum.PROGRAMADO.getValue())));
+			criteria.addOrder(Order.desc("fechaProgramacion"));
+			criteria.addOrder(Order.desc("version"));
+			programacion = criteria.list();
+			trans.commit();
+		}catch(Exception e){
+			trans.rollback();
+			throw e;
+		}
+		return programacion;
 	}
 
 	
