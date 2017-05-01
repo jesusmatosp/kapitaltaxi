@@ -198,7 +198,7 @@ $(function () {
 			icono = "fa fa-warning shake animated";
 		}else if(type==='success'){
 			titulo = "Mensaje Informativo";
-			contenido = "Correcto: Los datos se registraron Satisfactoriamente en el Sistema." + message;
+			contenido = "Correcto: " + message;
 			bg_color = "#739E73";
 			icono = "fa fa-check";
 		}else if(type==='warning'){
