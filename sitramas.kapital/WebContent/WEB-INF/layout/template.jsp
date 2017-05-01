@@ -210,7 +210,7 @@
 				<ul id="mobile-profile-img" class="header-dropdown-list hidden-xs padding-5">
 					<li class="">
 						<a href="#" class="dropdown-toggle no-margin userdropdown" data-toggle="dropdown"> 
-							<img src="<c:url value="/resources/img/avatars/sunny.png" />" alt="John Doe" class="online" />  
+							<img src="<c:url value="/resources/img/avatars/male.png" />" alt="John Doe" class="online" />  
 						</a>
 						<ul class="dropdown-menu pull-right">
 							<li>
