@@ -29,15 +29,18 @@
 				<div class="collapse navbar-collapse"
 					id="bs-example-navbar-collapse-2">
 					<ul class="nav navbar-nav">
-						<li><a href="#" data-toggle="modal" data-target="#uploadPrograModal"><i
+						<c:if test="${programacion.flgBorrador == true}">
+							<li><a href="#" data-toggle="modal" data-target="#uploadPrograModal"><i
 								class="fa fa-upload"></i> Carga Masiva</a></li>
+						</c:if>
 						<li><a href="#" class="monitorKT" data-toggle="modal" data-target="#monitoreoCargaModal"><i
 								class="fa fa-tachometer"></i> Monitorear Carga</a></li>
-						<li><a href="javascript:void(0);"> <i
-								class="fa fa-calendar"></i> Incluir Programacion</a></li>
-						<li><a href="javascript:void(0);" id="btnEnviarProgramacion"> <i
-								class="fa fa-send"></i> Enviar Programacion</a></li>								
-								
+						<c:if test="${programacion.flgBorrador == true}">
+							<li><a href="javascript:void(0);"> <i
+									class="fa fa-calendar"></i> Incluir Programacion</a></li>
+							<li><a href="javascript:void(0);" id="btnEnviarProgramacion"> <i
+									class="fa fa-send"></i> Enviar Programacion</a></li>
+						</c:if>	
 					</ul>
 					<form class="navbar-form navbar-right" role="search">
 						<div class="form-group">
@@ -154,8 +157,10 @@
 											<td>
 												<a href="${pageContext.request.contextPath}/servicios/detalleProgramacion/${pasajeros.id}"
 												   class='btn btn-xs btn-default'> <i class='fa fa-search'></i></a>
-												<a href="#"
-												   class='btn btn-xs btn-default'> <i class='fa fa-trash-o'></i></a>
+												<c:if test="${programacion.flgBorrador == true}">
+													<a href="#" name="${pasajeros.id}"
+												   		class='btn btn-xs btn-default deleteCarga'> <i class='fa fa-trash-o'></i></a>
+												</c:if>
 											</td>
 										</tr>
 									</c:forEach>

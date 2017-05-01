@@ -108,19 +108,24 @@
 											<td><c:out value="${programacion.strCliente}" /> </td>
 											<td><c:out value="${programacion.strFechaProgramacion}" /> </td>
 											<td><c:out value="${programacion.version}" /> </td>
-											<td><c:out value="${programacion.strEstadoProgramacion}" /> </td>
+											<td style="font-weight: bold;" ><c:out value="${programacion.strEstadoProgramacion}" /> </td>
 											<td><a href="<c:url  value='/servicios/download/${programacion.idProgramacion}' />"><c:out value="${programacion.rutaArchivo}" /> </a></td>
 											<td class="val" data-val="${programacion.idProgramacion}">
 												<div>
-													<a href="<%= request.getContextPath() %>/servicios/addprogramacion/<c:url value="${programacion.idProgramacion}" />"
+													<c:if test="${programacion.flgBorrador == true}">
+														<a href="<%= request.getContextPath() %>/servicios/addprogramacion/<c:url value="${programacion.idProgramacion}" />"
 														class='btn btn-xs btn-default'
 														data-original-title='Edit Row'> <i class='fa fa-upload'></i></a>
-													<a href="<%= request.getContextPath() %>/seguridad/usuarios/usuario/<c:url value="${programacion.idProgramacion}" />" id="view_usuario" name="${programacion.idProgramacion}"
-														class='btn btn-xs btn-default'
-														data-original-title='Cancel'> <i class='fa fa-send'></i></a>
-													<a href="<%= request.getContextPath() %>/seguridad/usuarios/usuario/<c:url value="${programacion.idProgramacion}" />" id="view_usuario" name="${programacion.idProgramacion}"
+														<a href="#" 
+															class='btn-enviar btn btn-xs btn-default' name="${programacion.idProgramacion}"
+															data-original-title='Cancel'> <i class='fa fa-send'></i></a>
+													</c:if>
+													<c:if test="${programacion.flgBorrador == false}">
+													<a href="<%= request.getContextPath() %>/servicios/addprogramacion/<c:url value="${programacion.idProgramacion}" />" 
+														id="view_usuario" name="${programacion.idProgramacion}"
 														class='btn btn-xs btn-default'
 														data-original-title='Cancel'> <i class='fa fa-search'></i></a>
+													</c:if>
 												</div>
 											</td>
 										</tr>
