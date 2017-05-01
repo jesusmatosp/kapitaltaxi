@@ -58,6 +58,7 @@ import com.kapital.sitramas.servicios.service.CargaMasivaService;
 import com.kapital.sitramas.servicios.service.ProgramacionMessageSender;
 import com.kapital.sitramas.servicios.service.ProgramacionService;
 import com.kapital.sitramas.servicios.service.SedeService;
+import com.kapital.sitramas.utils.ConstantesUtils;
 import com.kapital.sitramas.utils.KapitalUtils;
 
 
@@ -91,7 +92,8 @@ public class ProgramacionController {
 	public ModelAndView programacion(Model model, HttpServletRequest request){
 		ModelAndView mv = new ModelAndView();
 		try{
-			List<ProgramacionDTO> programaciones = programacionService.findAllProgramacion();
+			//List<ProgramacionDTO> programaciones = programacionService.findAllProgramacion();
+			List<ProgramacionDTO> programaciones = programacionService.findAllProgramacionBorrador();
 			model.addAttribute("programaciones", programaciones);
 			String username = request.getUserPrincipal().getName();
 			Usuario user = usuarioService.findUsuarioByUsername(username);
@@ -123,7 +125,6 @@ public class ProgramacionController {
 		try{
 			ProgramacionDTO programacionDTO = programacionService.findById(idProgramacion);
 			model.addAttribute("programacion", programacionDTO);
-			
 			List<ProgramacionPasajeroDTO> pasajeros = programacionService.findAllProgramacionCliente(idProgramacion, programacionDTO.getVersion());
 			model.addAttribute("pasajeros", pasajeros);
 		}catch(Exception e){
@@ -132,7 +133,42 @@ public class ProgramacionController {
 		}
 		mv.setViewName("addprogramacion");
 		return mv;
-		
+	}
+	
+	@ResponseBody
+	@RequestMapping("deletedetalleprogramacion")
+	public JsonResponse eliminarDetalleProgramacion(Long id){
+		JsonResponse response = new JsonResponse();
+		try{
+			programacionService.deleteDetalleProgramacion(id);
+			response.setMessage(ConstantesUtils.DELETE_RECORD);
+			response.setSuccess(true);
+		}catch(Exception e){
+			response.setMessage(ConstantesUtils.ERROR_DELETE);
+			response.setSuccess(false);
+			Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SITRAMAS ERROR:", e);
+		}
+		return response;
+	}
+	
+	@ResponseBody
+	@RequestMapping("enviarProgramacion")
+	public JsonResponse enviarProgramacion(Long id){
+		JsonResponse response = new JsonResponse();
+		try{			
+			Integer result = programacionService.enviarProgramacion(id);
+			if(result == 1){
+				response.setMessage(ConstantesUtils.UPDATE_RECORD);
+				response.setSuccess(true);
+			}else if(result == 0){
+				response.setMessage(ConstantesUtils.DUPLICATE_SEND);
+				response.setSuccess(false);
+			}
+		}catch(Exception e){
+			response.setSuccess(false);
+			Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SITRAMAS ERROR:", e);
+		}
+		return response;
 	}
 	
 	@RequestMapping(value="/detalleProgramacion/{idProgramacion}",
@@ -168,7 +204,7 @@ public class ProgramacionController {
 			programacion.setEstado(EstadoProgramacionEnum.BORRADOR.getValue());
 			programacion.setFechaProgramacion(KapitalUtils.convertStringToDate(programacion.getStrFechaProgramacion()));
 			programacionService.saveProgramacion(programacion);
-			response.setMessage("Creado");
+			response.setMessage(ConstantesUtils.CREATE_RECORD);
 			response.setSuccess(true);
 		}catch(Exception e){
 			response.setSuccess(false);
