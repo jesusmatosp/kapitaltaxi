@@ -1,6 +1,43 @@
 $(function () {
 	
+	/** Eliminar Detalle de la Carga  */
+	var idcargadet = null;
+	$('a.deleteCarga[name]').click(function(e) {
+		idcargadet = $(this).attr('name');
+		console.log('--');
+		$.SmartMessageBox({
+			title : "Mensaje de Confirmación!",
+			content : "¿Está Seguro que desea eliminar el detalle de la Carga?",
+			buttons : '[No][Si]'
+		}, function(ButtonPressed) {
+			if (ButtonPressed === "Si") {
+				$.ajax({
+					url: url('servicios/deletedetalleprogramacion'),
+					type: 'POST',
+					async: true,
+					data: {id: idcargadet},
+                    success: function (response) {
+                    	if (response.success) {
+                    		notifyBox("Datos de la Programacion: "+response.message, e, "success");
+	                        setTimeout(function () {
+	                            location.reload();
+	                        }, 2500);
+                    	}else{
+                    		notifyBox(response.message, e, "error");
+                    	}
+                    },
+                    error: function () {
+                    	notifyBox("Error General", e, "error");
+                    }
+				});
+			}
+			if (ButtonPressed === "No") {
+			}	
+		});
+		e.preventDefault();
+	});
 	
+	/** Reconstruir carga buscador de carga masiva. */
 	$('.monitorKT, #btnRefreshMonitor').click(function(){
 		// Setea Campos:
 		var header = '<thead><tr>';
@@ -34,20 +71,43 @@ $(function () {
 					template +="</tbody>";
 					$("#dt_carga").html($(template));
 				}else{
-					alert("Nada :(");
+					
 				}
 			}
 		});
 	});
 	
-	$('#btnEnviarProgramacion').click(function(e){
+	/** Envio de la Programación a nivel de detalle **/
+	$('a.btn-enviar[name], #btnEnviarProgramacion').click(function(e){
+		var idProgramacion = $('#idProgramacion').val();
+		if(idProgramacion == null){
+			idProgramacion = $(this).attr('name');
+		}
 		$.SmartMessageBox({
 			title : "Mensaje de Confirmación!",
 			content : "¿Está Seguro que desea Enviar La Programación? Ya no podrá realizar mas modificaciones sobre esta Programación.",
 			buttons : '[No][Si]'
 		}, function(ButtonPressed) {
 			if (ButtonPressed === "Si") {
-				
+				$.ajax({
+					url: url('servicios/enviarProgramacion'),
+					type: 'POST',
+					async: true,
+					data: {id: idProgramacion},
+                    success: function (response) {
+                    	if (response.success) {
+                    		notifyBox("Envio de la Programacion: "+response.message, e, "success");
+	                        setTimeout(function () {
+	                            location.reload();
+	                        }, 2500);
+                    	}else{
+                    		notifyBox(response.message, e, "error");
+                    	}
+                    },
+                    error: function () {
+                    	notifyBox("Error General", e, "error");
+                    }
+				});
 			}
 			if (ButtonPressed === "No") {
 				
@@ -70,7 +130,6 @@ $(function () {
 			}	
 		});
 		e.preventDefault();
-		
 	});
 	
 	$('#frm01btnGuardar').click(function(e){
