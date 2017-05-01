@@ -16,6 +16,11 @@ import javax.mail.internet.MimeMessage;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
+/*
+ *	@author jmatos
+ *	@description Clase util para el envio de correo Electrónico 
+ * 
+ * */
 @Component
 public class EmailUtil {
 
