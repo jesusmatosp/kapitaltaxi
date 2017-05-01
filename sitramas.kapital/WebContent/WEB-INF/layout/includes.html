@@ -1,0 +1,85 @@
+<div id="dialog_add_users" title="Dialog Simple Title">
+	<p>
+		<i class='fa fa-question-circle fa-2x'></i> ¿Está Seguro que desea
+		Guardar los Cambios?
+	</p>
+</div>
+
+<div id="dialog_info" title="Dialog Simple Title">
+	<p>
+		<i class='fa fa-info-circle fa-2x'></i> Los Datos se Guardaron Satisfactoriamente
+	</p>
+</div>
+<div id="dialog_user_existe_2" title="Dialog Simple Title">
+	<p>
+		<i class='fa fa-times-circle fa-2x'></i> Este usuario ya existe, ingrese otro.
+	</p>
+</div>
+
+<div id="diagol_registro_existe" title="Dialog Simple Title">
+	<p>
+		<i class='fa fa-times-circle fa-2x'></i> Este registro ya existe.
+	</p>
+</div>
+
+<!-- Dialog - Programación de Servicios -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">Nueva Programación</h4>
+			</div>
+			<div class="modal-body">
+				<form id="programacion-form" name="programacion-form" method="post" >
+				<div class="row">
+					<div class="col-md-12">
+						<c:if test="${flagCliente=='true'}">
+								<div class="form-group">
+									<input type="hidden" id="idCliente" name="idCliente" value="${cliente.id}" > 
+									<label for="frm-prog-cliente"> Cliente:</label> <input type="text"
+										class="form-control" id="frm-prog-cliente"
+										value="${cliente.nombreCliente}"
+										placeholder="Datos Completos del Cliente" disabled />
+								</div>
+						</c:if>
+						<c:if test="${flagCliente=='false'}">
+								<div class="form-group">
+									<label>Cliente: </label>
+									<select class="form-control"
+										value="${persona.usuario.idCliente}" name="usuario.idCliente"
+										id="forUserIdCliente">
+											<option value="">-- Seleccione --</option>
+											<c:forEach items="${clientes}" var="cliente">
+												<option value="${cliente.id}"
+													<c:out value="${persona.usuario.idCliente==option.id ? 'selected=selected' : ''}" />>${cliente.nombreCliente}</option>
+											</c:forEach>
+									</select> <i></i>
+							</div>
+						</c:if>
+						<div class="form-group">
+							<label for="fechaProgramacion" > Fecha Programacion:</label>
+							<div class="input-group">
+								<input type="text" class="form-control datepicker" value="${programacion.strFechaProgramacion}"
+									data-dateformat="dd/mm/yy" data-mask="99/99/9999"
+									data-mask-placeholder="-" value=""
+									name="strFechaProgramacion" id="strFechaProgramacion"> <span
+									class="input-group-addon"><i class="fa fa-calendar"></i></span>
+							</div>
+						</div>
+					</div>
+				</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">
+					Cancelar</button>
+				<button id="frm01btnGuardar" type="button" class="btn btn-primary">Guardar
+				</button>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>

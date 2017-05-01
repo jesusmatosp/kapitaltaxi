@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="sitramas.kapital.be">
+		<class>com.kapital.sitramas.be.Cliente</class>
+		<class>com.kapital.sitramas.be.Privilegio</class>
+		<class>com.kapital.sitramas.be.Rol</class>
+		<class>com.kapital.sitramas.be.TipoUsuario</class>
+		<class>com.kapital.sitramas.be.Ubigeo</class>
+		<class>com.kapital.sitramas.be.Usuario</class>
+		<class>com.kapital.sitramas.be.UsuarioPK</class>
+		<class>com.kapital.sitramas.be.UsuarioRol</class>
+		<class>com.kapital.sitramas.be.UsuarioRolPK</class>
+		<class>com.kapital.sitramas.be.ValorParametro</class>
+		<class>com.kapital.sitramas.be.Persona</class>
+		<class>com.kapital.sitramas.be.RolPrivilegio</class>
+		<class>com.kapital.sitramas.be.RolPrivilegioPK</class>
+		<class>com.kapital.sitramas.be.Parametro</class>
+		<class>com.kapital.sitramas.be.CargaMasiva</class>
+		<class>com.kapital.sitramas.be.CargaMasivaPK</class>
+		<class>com.kapital.sitramas.be.DetalleServicio</class>
+		<class>com.kapital.sitramas.be.DetalleServicioPK</class>
+		<class>com.kapital.sitramas.be.Geolocalizacion</class>
+		<class>com.kapital.sitramas.be.GeolocalizacionPK</class>
+		<class>com.kapital.sitramas.be.Incidencia</class>
+		<class>com.kapital.sitramas.be.Programacion</class>
+		<class>com.kapital.sitramas.be.Sede</class>
+		<class>com.kapital.sitramas.be.Servicio</class>
+		<class>com.kapital.sitramas.be.ServicioPK</class>
+		<class>com.kapital.sitramas.be.ProgramacionPasajero</class>
+
+	</persistence-unit>
+</persistence>

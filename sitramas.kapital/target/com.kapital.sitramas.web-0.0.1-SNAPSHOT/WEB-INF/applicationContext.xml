@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!-- was: <?xml version="1.0" encoding="UTF-8"?> -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:jms="http://www.springframework.org/schema/jms"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+       http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.0.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+       http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+       http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms-4.0.xsd">
+
+    <!-- Import Modules -->
+    <import resource="spring-security.xml"/>
+    <import resource="spring-database.xml"/>
+
+	<import resource="classpath:spring/batch/config/context.xml" />
+    <import resource="classpath:spring/batch/config/job-report.xml" />
+    <import resource="classpath:spring/batch/config/database.xml" />
+    <!-- ADD PERSISTENCE SUPPORT HERE (jpa, hibernate, etc) -->
+    <mvc:annotation-driven />
+    <task:annotation-driven />
+    <!-- Configuración de Cola de Mensajes -->
+    <!-- jms:listener-container>
+	 <jms:listener destination="jms/KapitalQueue" 
+	               ref="messageHandler" 
+	               method="handleMessageAlert" />
+	</jms:listener-container>
+	
+	<bean id="messageHandler" class="com.kapital.sitramas.seguridad.service.impl.MessageAlertHandler" /> -->
+	<context:component-scan base-package="com.kapital.sitramas.task.scheduler" />
+	<context:component-scan base-package="com.kapital.sitramas.*" />
+	 
+  	<!-- <task:scheduled-tasks scheduler="kapitalScheduler">
+        <task:scheduled ref="sitramasQueueTask" method="printMessage" fixed-delay="40000" />
+    </task:scheduled-tasks>  -->
+ 	<task:scheduled-tasks scheduler="procesoScheduler">
+        <task:scheduled ref="sitramasQueueTask" method="procesarCargaMasiva" fixed-delay="60000" />
+    </task:scheduled-tasks>
+ 
+    <!-- <task:scheduler id="kapitalScheduler"/>-->
+    <task:scheduler id="procesoScheduler"/> 
+</beans>

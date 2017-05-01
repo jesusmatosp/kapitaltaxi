@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+
+	<definition name="common" template="/WEB-INF/layout/template.jsp" />
+	<definition name="login" template="/WEB-INF/jsp/login.jsp" />
+
+	<definition name="index" extends="common">
+		<put-attribute name="title" value="Prueba 1" />
+		<put-attribute name="body" value="/WEB-INF/jsp/index.jsp" />
+		<put-attribute name="breadcrumb" value="/WEB-INF/jsp/common/titles.jsp" />
+	</definition>
+	
+	<definition name="cuenta" extends="common">
+		<put-attribute name="title" value="Administrar Password" />
+		<put-attribute name="body" value="/WEB-INF/jsp/seguridad/modificar_password.jsp" />
+		<put-attribute name="breadcrumb" value="/WEB-INF/jsp/seguridad/menu-cuenta.jsp" />
+	</definition>
+	
+	<definition name="privilegios" extends="common">
+		<put-attribute name="title" value="Administrar Privilegios" />
+		<put-attribute name="body" value="/WEB-INF/jsp/seguridad/privilegios.jsp" />
+		<put-attribute name="breadcrumb" value="/WEB-INF/jsp/seguridad/menu-privilegios.jsp" />
+	</definition>
+	
+	<definition name="addprivilegio" extends="common">
+		<put-attribute name="title" value="Administrar Privilegios" />
+		<put-attribute name="body" value="/WEB-INF/jsp/seguridad/addprivilegio.jsp" />
+		<put-attribute name="breadcrumb" value="/WEB-INF/jsp/seguridad/menu-privilegios.jsp" />
+	</definition>
+	
+	<definition name="roles" extends="common">
+		<put-attribute name="title" value="Administrar Roles" />
+		<put-attribute name="body" value="/WEB-INF/jsp/seguridad/roles.jsp" />
+		<put-attribute name="breadcrumb" value="/WEB-INF/jsp/seguridad/menu-roles.jsp" />
+	</definition>
+	
+	<definition name="addrol" extends="common">
+		<put-attribute name="title" value="Administrar Roles" />
+		<put-attribute name="body" value="/WEB-INF/jsp/seguridad/addrol.jsp" />
+		<put-attribute name="breadcrumb" value="/WEB-INF/jsp/seguridad/menu-roles.jsp" />
+	</definition>
+	
+	<definition name="usuarios" extends="common">
+		<put-attribute name="title" value="Administrar Usuarios" />
+		<put-attribute name="body" value="/WEB-INF/jsp/seguridad/usuarios.jsp" />
+		<put-attribute name="breadcrumb" value="/WEB-INF/jsp/seguridad/menu-usuarios.jsp" />
+	</definition>
+	
+	<definition name="personas" extends="common">
+		<put-attribute name="title" value="Administrar Personas" />
+		<put-attribute name="body" value="/WEB-INF/jsp/personal/personas.jsp" />
+		<put-attribute name="breadcrumb" value="/WEB-INF/jsp/personal/menu-personas.jsp" />
+	</definition>
+	
+	<definition name="addpersona" extends="common">
+		<put-attribute name="title" value="Nueva Persona" />
+		<put-attribute name="body" value="/WEB-INF/jsp/personal/addpersona.jsp" />
+		<put-attribute name="breadcrumb" value="/WEB-INF/jsp/personal/menu-personas.jsp" />
+	</definition>
+	
+	<definition name="persona" extends="common">
+		<put-attribute name="title" value="Ver Datos Persona" />
+		<put-attribute name="body" value="/WEB-INF/jsp/personal/viewpersona.jsp" />
+		<put-attribute name="breadcrumb" value="/WEB-INF/jsp/personal/menu-personas.jsp" />
+	</definition>
+	
+	<definition name="addusuario" extends="common">
+		<put-attribute name="title" value="Administrar Usuarios" />
+		<put-attribute name="body" value="/WEB-INF/jsp/seguridad/addusuario.jsp" />
+		<put-attribute name="breadcrumb" value="/WEB-INF/jsp/seguridad/menu-usuarios.jsp" />
+	</definition>
+	
+	<definition name="usuario" extends="common">
+		<put-attribute name="title" value="Administrar Usuarios" />
+		<put-attribute name="body" value="/WEB-INF/jsp/seguridad/viewusuario.jsp" />
+		<put-attribute name="breadcrumb" value="/WEB-INF/jsp/seguridad/menu-usuarios.jsp" />
+	</definition>
+	
+	<definition name="programacion" extends="common">
+		<put-attribute name="title" value="Programación de Servicios" />
+		<put-attribute name="body" value="/WEB-INF/jsp/servicios/programacion.jsp" />
+		<put-attribute name="breadcrumb" value="/WEB-INF/jsp/servicios/menu-programacion.jsp" />
+	</definition>
+	
+	<definition name="addprogramacion" extends="common">
+		<put-attribute name="title" value="Carga de Servicios" />
+		<put-attribute name="body" value="/WEB-INF/jsp/servicios/cargarprogramacion.jsp" />
+		<put-attribute name="breadcrumb" value="/WEB-INF/jsp/servicios/menu-programacion.jsp" />
+	</definition>
+	
+	<definition name="viewprogramacion" extends="common">
+		<put-attribute name="title" value="Detalle de Programación" />
+		<put-attribute name="body" value="/WEB-INF/jsp/servicios/viewdetallecarga.jsp" />
+		<put-attribute name="breadcrumb" value="/WEB-INF/jsp/servicios/menu-programacion.jsp" />
+	</definition>
+	
+	<definition name="error" extends="common">
+		<put-attribute name="title" value="Pagina No Encontrada" />
+		<put-attribute name="body" value="/WEB-INF/jsp/error.jsp" />
+	</definition>    
+	
+
+</tiles-definitions>
