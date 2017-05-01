@@ -24,6 +24,7 @@ public class ProgramacionDTO implements Serializable{
 	private String strCliente;
 	private String strFechaProgramacion;
 	private String strEstadoProgramacion;
+	private boolean flgBorrador;
 	
 	public String getStrCliente() {
 		return strCliente;
@@ -136,6 +137,14 @@ public class ProgramacionDTO implements Serializable{
 
 	public void setRutaArchivo(String rutaArchivo) {
 		this.rutaArchivo = rutaArchivo;
+	}
+
+	public boolean isFlgBorrador() {
+		return flgBorrador;
+	}
+
+	public void setFlgBorrador(boolean flgBorrador) {
+		this.flgBorrador = flgBorrador;
 	}
 	
 	
