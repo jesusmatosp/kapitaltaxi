@@ -7,7 +7,6 @@ import java.util.Date;
 
 /**
  * The persistent class for the tbl_carga_masiva database table.
- * 
  */
 @Entity
 @Table(name="tbl_carga_masiva")
